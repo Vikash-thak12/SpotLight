@@ -3,6 +3,7 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import { ClerkProvider, ClerkLoaded } from '@clerk/clerk-expo'
 import { tokenCache } from "@/cache";
+import InitialLayout from "@/components/InitialLayout";
 
 
 // clerk setup
@@ -20,7 +21,7 @@ export default function RootLayout() {
       <ClerkLoaded>
         <SafeAreaProvider>
           <SafeAreaView className="flex-1">
-            <Stack screenOptions={{ headerShown: false }} />
+            <InitialLayout />
           </SafeAreaView>
         </SafeAreaProvider>
       </ClerkLoaded>

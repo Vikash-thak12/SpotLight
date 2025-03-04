@@ -3,8 +3,25 @@ import React from 'react'
 import { COLORS } from '@/constants/theme'
 import { Ionicons } from '@expo/vector-icons'
 import { styles } from '@/styles/auth.style'
+import { useSSO } from '@clerk/clerk-expo'
+import { useRouter } from 'expo-router'
 
 export default function login() {
+
+  const { startSSOFlow } = useSSO(); 
+  const router = useRouter(); 
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const { createdSessionId, setActive } = await startSSOFlow({ strategy: "oauth_google"}); 
+      if(setActive && createdSessionId){
+        setActive({ session: createdSessionId});
+        router.replace("/(tabs)")
+      }
+    } catch (error) {
+      console.log("OAuth Error", error)
+    }
+  }
   return (
     // style={{ backgroundColor: COLORS.background}}
     <View className='flex-1 px-2 bg-black'>
@@ -26,7 +43,7 @@ export default function login() {
       // google auth
       <View className='mt-14 mx-10'>
         <TouchableOpacity 
-        onPress={() => alert("You are Signing")}
+        onPress={handleGoogleSignIn}
         className='flex flex-row items-center justify-center py-4 gap-4 border rounded-xl bg-white'
         >
           <View>
