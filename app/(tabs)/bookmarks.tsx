@@ -3,8 +3,8 @@ import React from 'react'
 
 export default function BookMarks() {
   return (
-    <View>
-      <Text>BookMarks</Text>
+    <View className=''>
+      <Text>BookMarks for your Easiness</Text>
     </View>
   )
 }
