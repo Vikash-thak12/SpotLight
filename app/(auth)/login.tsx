@@ -26,7 +26,7 @@ export default function login() {
     // style={{ backgroundColor: COLORS.background}}
     <View className='flex-1 px-2 bg-black'>
 
-      // Brand Section
+      {/* Brand Section */}
       <View className='mt-20 flex items-center'>
         <View>
           <Ionicons name='leaf' size={42} color={COLORS.primary} />
@@ -35,12 +35,12 @@ export default function login() {
         <Text className='text-base text-neutral-500 mt-2'>don't miss anything</Text>
       </View>
 
-      // image section
+      {/* image section */}
       <View className='max-h-96 flex-1 items-center justify-center mt-10'>
         <Image source={require("../../assets/images/logo.png")} style={styles.illustration} resizeMode='contain' />
       </View>
 
-      // google auth
+      {/* google auth */}
       <View className='mt-14 mx-10'>
         <TouchableOpacity 
         onPress={handleGoogleSignIn}
