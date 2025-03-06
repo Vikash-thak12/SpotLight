@@ -20,6 +20,6 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": ["./**/*"],
+  "include": ["./**/*", "../styles/create.styles.ts"],
   "exclude": ["./_generated"]
 }
