@@ -24,7 +24,7 @@ export default function CreateScreen() {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: "images",
       allowsEditing: true,
-      aspect: [4, 4],
+      aspect: [2, 3],
       quality: 0.8,
     });
 

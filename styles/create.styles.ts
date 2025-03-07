@@ -1,4 +1,5 @@
-import { COLORS } from "@/constants/theme";
+
+// import { COLORS } from "@/constants/theme";
 import { Dimensions, StyleSheet } from "react-native";
 
 const { width } = Dimensions.get('window');
@@ -6,7 +7,7 @@ const { width } = Dimensions.get('window');
 export const style = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: COLORS.background,
+        backgroundColor: "black",
     }, 
     contentContainer: {
         flex: 1
@@ -30,7 +31,7 @@ export const style = StyleSheet.create({
     imageSection: {
         width: width, 
         height: width,
-        backgroundColor: COLORS.surface, 
+        backgroundColor: "#1A1A1A", 
         justifyContent: "center",
         alignItems: "center",
     }, 
@@ -45,7 +46,7 @@ export const style = StyleSheet.create({
         gap: 4,
     }, 
     captionInput: {
-        color: COLORS.white, 
+        color: "white", 
         minHeight: 40, 
         paddingTop: 8
     }
