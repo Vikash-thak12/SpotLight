@@ -1,11 +1,13 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'expo-router'
 import { Image } from 'expo-image'
 import { Ionicons } from '@expo/vector-icons'
 import { COLORS } from '@/constants/theme'
 import { styles } from '@/styles/feed.styles'
 import { Id } from '@/convex/_generated/dataModel'
+import { api } from '@/convex/_generated/api'
+import { useMutation } from 'convex/react'
 
 
 type Postpros = {
@@ -17,7 +19,7 @@ type Postpros = {
         likes: number;
         comments: number;
         isLiked: boolean;
-        isBookmarked: boolean; 
+        isBookmarked: boolean;
         author: {
             _id: string,
             username: string,
@@ -28,6 +30,20 @@ type Postpros = {
 }
 
 export default function Post({ post }: Postpros) {
+    const [isLiked, setIsLiked] = useState(post.isLiked);
+    const [likeCount, setLikeCount] = useState(post.likes);
+
+    const togglelike = useMutation(api.posts.toggleLike)
+    const handleLike = async () => {
+        try {
+            const newIsLiked = await togglelike({ postId: post._id });
+            setIsLiked(newIsLiked);
+            setLikeCount((prev) => newIsLiked ? prev + 1 : prev - 1);
+        } catch (error) {
+            console.log("Error in handlike: ", error)
+        }
+    }
+
     return (
         <View className='p-4 rounded-xl' style={{ marginBottom: 20 }}>
             <View className='flex-row gap-4 items-center justify-between'>
@@ -73,8 +89,8 @@ export default function Post({ post }: Postpros) {
             {/* Post Action */}
             <View className='flex-row gap-4 mt-4 items-center justify-between'>
                 <View className='flex-row gap-4'>
-                    <TouchableOpacity>
-                        <Ionicons name='heart-outline' size={20} color={COLORS.white} />
+                    <TouchableOpacity onPress={handleLike}>
+                        <Ionicons name={isLiked ? "heart" : "heart-outline"} size={20} color={isLiked ? COLORS.primary : COLORS.white} />
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <Ionicons name='chatbubble-outline' size={20} color={COLORS.white} />
@@ -90,11 +106,15 @@ export default function Post({ post }: Postpros) {
 
             {/* Post Info */}
             <View>
-                {/* <Text className='text-white mt-4'>This is about post Information</Text> */}
+                <Text className='text-white mt-4'>
+                    {likeCount > 0 ? `${likeCount.toLocaleString()} ${likeCount == 1 ? "like" : "likes"}` : "Be the first to like"}
+                </Text>
                 {
                     post.caption && (
                         <View>
-                            {/* <Text className='text-white mt-2'>{post.author.username}</Text> */}
+                            <Text className='text-white mt-2'>
+
+                            </Text>
                             <Text className='text-white mt-2'>{post.caption}</Text>
                         </View>
                     )
