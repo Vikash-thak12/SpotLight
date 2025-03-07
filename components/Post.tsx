@@ -5,8 +5,29 @@ import { Image } from 'expo-image'
 import { Ionicons } from '@expo/vector-icons'
 import { COLORS } from '@/constants/theme'
 import { styles } from '@/styles/feed.styles'
+import { Id } from '@/convex/_generated/dataModel'
 
-export default function Post({ post }: { post: any }) {
+
+type Postpros = {
+    post: {
+        _id: Id<"posts">;
+        _creationTime: number;
+        caption?: string | undefined;
+        imageUrl: string;
+        likes: number;
+        comments: number;
+        isLiked: boolean;
+        isBookmarked: boolean; 
+        author: {
+            _id: string,
+            username: string,
+            image: string,
+        }
+
+    }
+}
+
+export default function Post({ post }: Postpros) {
     return (
         <View className='p-4 rounded-xl' style={{ marginBottom: 20 }}>
             <View className='flex-row gap-4 items-center justify-between'>

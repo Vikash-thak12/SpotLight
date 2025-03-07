@@ -32,7 +32,10 @@ export default function Index() {
 
 
       {/* todo: add scroll indicator */}
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 100}}
+      >
         {/* Stories Section */}
         <ScrollView
           style={styles.storiesContainer}
