@@ -1,12 +1,15 @@
-import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView, Share, ActivityIndicator, Platform, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, KeyboardAvoidingView, ActivityIndicator, Platform, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import { useRouter } from 'expo-router'
 import { useUser } from '@clerk/clerk-expo';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '@/constants/theme';
 import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
 import { Image } from "expo-image";
 import { style } from '@/styles/create.styles';
+import { useMutation } from 'convex/react';
+import { api } from '@/convex/_generated/api';
 
 export default function CreateScreen() {
   const router = useRouter();
@@ -19,19 +22,46 @@ export default function CreateScreen() {
 
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: "images", 
+      mediaTypes: "images",
       allowsEditing: true,
-      aspect: [1, 1],
+      aspect: [4, 4],
       quality: 0.8,
     });
-    
+
 
     if (!result.canceled) {
       setSelectedImage(result.assets[0].uri);
     }
   }
 
-  console.log("Selected Image: ", selectedImage);
+  const generateUploadUrl = useMutation(api.posts.generateUploadUrl)
+  const createPost = useMutation(api.posts.createPost)
+
+  const handleShare = async () => {
+    if(!selectedImage) return;
+    try {
+      setIsSharing(true);
+      const uploadUrl = await generateUploadUrl();
+      const uploadResult = await FileSystem.uploadAsync(uploadUrl, selectedImage, {
+        httpMethod: 'POST',
+        uploadType: FileSystem.FileSystemUploadType.BINARY_CONTENT,
+        mimeType: 'image/jpeg',
+      })
+
+      if(uploadResult.status !== 200) {
+        throw new Error("Failed to upload image");
+      }
+
+      const { storageId } = JSON.parse(uploadResult.body);
+      await createPost({ caption, storageId });
+
+      router.push("/(tabs)")
+    } catch (error) {
+      console.error("Error sharing post:", error);
+    } finally{
+      setIsSharing(false);
+    }
+  }
 
 
   if (!selectedImage) {
@@ -56,15 +86,14 @@ export default function CreateScreen() {
   }
 
   return (
-    <KeyboardAvoidingView 
-    style={style.container}
-    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    keyboardVerticalOffset={Platform.OS === 'ios' ? 20 : 0}
+    <KeyboardAvoidingView
+      style={style.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 100}
     >
       <View style={style.contentContainer}>
         {/* Header */}
         <View className='flex-row items-center justify-between bg-gray-500 p-2'>
-        {/* <View className='flex-row items> */}
           <TouchableOpacity
             onPress={() => {
               setSelectedImage(null);
@@ -76,8 +105,8 @@ export default function CreateScreen() {
           </TouchableOpacity>
           <Text className='font-bold'>New Post</Text>
           <TouchableOpacity
-          // disabled={isSharing || !selectedImage}
-          // onPress={handleShare}
+          disabled={isSharing || !selectedImage}
+          onPress={handleShare}
           >
             {
               isSharing ? (
@@ -95,6 +124,7 @@ export default function CreateScreen() {
           contentContainerStyle={style.scrollContent}
           bounces={false}
           keyboardShouldPersistTaps='handled'
+          contentOffset={{ x: 0, y: 100}}
         >
           <View>
 
@@ -116,21 +146,20 @@ export default function CreateScreen() {
             <View className='flex-1 p-5'>
               <View className='flex-row items-start gap-5'>
                 <Image
-                source={user?.imageUrl}
-                style={{ width: 40, height: 40, borderRadius: 20 }}
-                
-                contentFit='cover'
-                transition={200}
-                 />
-                 <TextInput
-                 style={style.captionInput}
-                 className='flex-1 fontsize-16 placeholder:text-gray-500'
-                  value={caption} 
+                  source={user?.imageUrl}
+                  style={{ width: 40, height: 40, borderRadius: 20 }}
+                  contentFit='cover'
+                  transition={200}
+                />
+                <TextInput
+                  style={style.captionInput}
+                  className='flex-1 fontsize-16 placeholder:text-gray-500'
+                  value={caption}
                   onChangeText={setCaption}
                   placeholder='Write a caption...'
                   multiline
                   editable={!isSharing}
-                  />
+                />
               </View>
             </View>
           </View>

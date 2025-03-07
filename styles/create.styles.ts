@@ -25,7 +25,7 @@ export const style = StyleSheet.create({
         opacity: 0.7
     }, 
     scrollContent: {
-        flexGrow: 1
+        flexGrow: 1, 
     }, 
     imageSection: {
         width: width, 
