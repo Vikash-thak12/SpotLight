@@ -1,4 +1,4 @@
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { useAuth } from "@clerk/clerk-expo";
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "@/constants/theme";
@@ -31,34 +31,34 @@ export default function Index() {
       </View>
 
 
-      {/* todo: add scroll indicator */}
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 100}}
+      {/* Stoies section */}
+      <FlatList
+        data={STORIES}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <Story story={item} />}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        className="mt-2"
+      />
+      {/* <ScrollView
+        style={styles.storiesContainer}
+        horizontal
+        showsHorizontalScrollIndicator={true}
       >
-        {/* Stories Section */}
-        <ScrollView
-          style={styles.storiesContainer}
-          horizontal
-          showsHorizontalScrollIndicator={true}
-        >
-          {
-            STORIES.map((story) => (
-              <Story key={story.id} story={story} />
-            ))
-          }
-        </ScrollView>
-
-
-        {/* Feed Section */}
         {
-          posts.map((post) => (
-            <Post key={post._id} post={post} />
-            // <View className="flex gap-5">
-            // </View>
+          STORIES.map((story) => (
+            <Story key={story.id} story={story} />
           ))
         }
-      </ScrollView>
+      </ScrollView> */}
+
+      {/* Posts Section */}
+      <FlatList
+        data={posts}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => <Post post={item} />}
+        showsVerticalScrollIndicator={false}
+      />
     </View>
   );
 }

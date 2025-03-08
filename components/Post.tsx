@@ -112,9 +112,6 @@ export default function Post({ post }: Postpros) {
                 {
                     post.caption && (
                         <View>
-                            <Text className='text-white mt-2'>
-
-                            </Text>
                             <Text className='text-white mt-2'>{post.caption}</Text>
                         </View>
                     )
