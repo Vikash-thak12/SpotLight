@@ -87,6 +87,7 @@ export default function Post({ post }: Postpros) {
             </View>
 
             {/* Post Action */}
+            {/* like, comment and bookmark */}
             <View className='flex-row gap-4 mt-4 items-center justify-between'>
                 <View className='flex-row gap-4'>
                     <TouchableOpacity onPress={handleLike}>
