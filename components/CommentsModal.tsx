@@ -24,11 +24,11 @@ export default function CommentsModal({ postId, visible, onClose, onCommentAdded
   const addComment = useMutation(api.comments.addComment);
 
   const handleComment = async () => {
-    if(!newComment.trim()) return;
+    if (!newComment.trim()) return;
 
     try {
       await addComment({
-        content: newComment, 
+        content: newComment,
         postId
       })
 
@@ -36,7 +36,7 @@ export default function CommentsModal({ postId, visible, onClose, onCommentAdded
       onCommentAdded();
     } catch (error) {
       console.log("Error in handleComment: ", error)
-      
+
     }
   }
 
@@ -47,7 +47,7 @@ export default function CommentsModal({ postId, visible, onClose, onCommentAdded
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         // style={{ flex: 1 }}
-      style={styles.modalContainer}
+        style={styles.modalContainer}
       >
         <View className='bg-black px-4 py-2'>
           <View className='flex-row items-center justify-between p-4'>
@@ -66,17 +66,14 @@ export default function CommentsModal({ postId, visible, onClose, onCommentAdded
                 data={comments}
                 keyExtractor={(item) => item._id}
                 renderItem={({ item }) => <CommentComp comment={item} />}
-              // contentContainerStyle={styles.commentList}
-              // style={{ flex: 1 }}
+                style={{ flex: 1 }}
               />
             )
         }
 
-        <View className='flex-row items-center justify-between px-4 gap-4'>
-        {/* <View style={styles.commentInput}> */}
+        <View style={styles.commentInput}>
           <TextInput
-            style={{ backgroundColor: 'white', color: 'black', flex:1, borderRadius: 10, paddingHorizontal: 20 }}
-            // style={styles.input}
+            style={{ backgroundColor: 'grey', color: 'white', flex: 1, borderRadius: 10, paddingHorizontal: 20 }}
             placeholder="Add a comment"
             value={newComment}
             onChangeText={setNewComment}

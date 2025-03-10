@@ -80,9 +80,6 @@ export const styles = StyleSheet.create({
         borderBottomWidth: 0.5,
         borderBottomColor: COLORS.surface
     }, 
-    commentList: {
-        flex: 1, 
-    }, 
     commentContainer: {
         flexDirection: "row", 
         alignItems: "center", 
@@ -106,10 +103,9 @@ export const styles = StyleSheet.create({
     commentInput: {
         flexDirection: "row", 
         alignItems: "center", 
+        gap: 10, 
         paddingHorizontal: 16,
-        paddingVertical: 12,
-        borderTopWidth: 0.5, 
-        borderTopColor: COLORS.surface, 
+        paddingVertical: 4,
         backgroundColor: COLORS.background
     }, 
     input: {
