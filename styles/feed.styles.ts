@@ -82,7 +82,8 @@ export const styles = StyleSheet.create({
     }, 
     commentContainer: {
         flexDirection: "row", 
-        alignItems: "center", 
+        // alignItems: "start", 
+        backgroundColor: COLORS.surface,
         paddingHorizontal: 16, 
         paddingVertical: 12, 
         borderBottomWidth: 0.5,
@@ -93,6 +94,7 @@ export const styles = StyleSheet.create({
         height: 32, 
         borderRadius: 16, 
         marginRight: 12, 
+        marginTop: 2
     },
     commentContent: {
         flex: 1, 

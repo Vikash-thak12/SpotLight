@@ -9,6 +9,7 @@ import { Id } from '@/convex/_generated/dataModel'
 import { api } from '@/convex/_generated/api'
 import { useMutation } from 'convex/react'
 import CommentsModal from './CommentsModal'
+import { formatDistanceToNow } from 'date-fns'
 
 
 type Postpros = {
@@ -125,10 +126,22 @@ export default function Post({ post }: Postpros) {
                     )
                 }
 
-                <TouchableOpacity>
-                    <Text className='text-white mt-2'>View all comments</Text>
-                </TouchableOpacity>
-                <Text className='text-white'>2 hours ago</Text>
+
+                {
+                    commentsCount > 0 && (
+                        <TouchableOpacity onPress={() => setShowComments(true)}>
+                            <Text style={{ color: COLORS.grey, marginTop: 4 }}>
+                                View all {commentsCount} comments
+                            </Text>
+                        </TouchableOpacity>
+                    )
+                }
+
+
+
+                <Text style={{ fontSize: 12, color: COLORS.grey }}>
+                    {formatDistanceToNow(post._creationTime, { addSuffix: true })}
+                </Text>
             </View>
 
             <CommentsModal
