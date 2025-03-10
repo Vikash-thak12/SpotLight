@@ -1,4 +1,4 @@
-import { mutation, MutationCtx, QueryCtx } from "./_generated/server";
+import { mutation, MutationCtx, query, QueryCtx } from "./_generated/server";
 import { v } from "convex/values";
 
 // Creating a user 
@@ -41,6 +41,16 @@ export const createUser = mutation({
         }
     }
 });
+
+export const getUserByClerk = query({
+    args: {
+        clerkId: v.string()
+    }, 
+    handler: async(ctx, args) => {
+        const currentUser = await ctx.db.query("users").withIndex("by_clerk_id", (q) => q.eq("clerkId", args.clerkId)).unique(); 
+        return currentUser; 
+    }
+})
 
 
 export async function getAuthenticatedUser(ctx: QueryCtx | MutationCtx){

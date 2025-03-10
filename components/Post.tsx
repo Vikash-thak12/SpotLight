@@ -7,9 +7,10 @@ import { COLORS } from '@/constants/theme'
 import { styles } from '@/styles/feed.styles'
 import { Id } from '@/convex/_generated/dataModel'
 import { api } from '@/convex/_generated/api'
-import { useMutation } from 'convex/react'
+import { useMutation, useQuery } from 'convex/react'
 import CommentsModal from './CommentsModal'
 import { formatDistanceToNow } from 'date-fns'
+import { useUser } from '@clerk/clerk-expo'
 
 
 type Postpros = {
@@ -46,6 +47,21 @@ export default function Post({ post }: Postpros) {
     const togglelike = useMutation(api.posts.toggleLike)
     const togglebookmark = useMutation(api.bookmarks.toggleBookmark)
 
+    // getting user from clerk 
+    const { user } = useUser();
+    // console.log("The user is: ", user?.id)
+    // this user is from database which have properties like likes, comments, bookmarks
+    const currentUser = useQuery(api.users.getUserByClerk, user ? { clerkId: user?.id } : "skip");
+
+    const deletePost = useMutation(api.posts.deletePost)
+    const handleDelete = async () => {
+        try {
+            await deletePost({ postId: post._id})
+        } catch (error) {
+            console.log("Error while deleting the post: ", error)
+        }
+    }
+
     const handleLike = async () => {
         try {
             const newIsLiked = await togglelike({ postId: post._id });
@@ -58,8 +74,8 @@ export default function Post({ post }: Postpros) {
 
     // for bookmarks
     const handleBookmark = async () => {
-       const newIsBookmarked = await togglebookmark({ postId: post._id})
-       setIsBookmarked(newIsBookmarked); 
+        const newIsBookmarked = await togglebookmark({ postId: post._id })
+        setIsBookmarked(newIsBookmarked);
     }
 
     return (
@@ -81,13 +97,21 @@ export default function Post({ post }: Postpros) {
 
                 {/* show a delete button */}
                 {/* note will be showon only if the post belongs to the current user  */}
-                <TouchableOpacity onPress={() => alert("Delete button pressed")}>
-                    <Ionicons name='trash' size={20} color={COLORS.primary} />
-                </TouchableOpacity>
 
-                {/* <TouchableOpacity onPress={() => alert("Delete button pressed")}>
-                    <Ionicons name='ellipsis-horizontal' size={20} color={COLORS.primary} />
-                </TouchableOpacity> */}
+                {
+                    post.author._id === currentUser?._id ? (
+                        <TouchableOpacity onPress={handleDelete}>
+                            <Ionicons name='trash' size={20} color={COLORS.primary} />
+                        </TouchableOpacity>
+                    ) : (
+                        <TouchableOpacity onPress={() => alert("Delete button pressed")}>
+                            <Ionicons name='ellipsis-horizontal' size={20} color={COLORS.primary} />
+                        </TouchableOpacity>
+                    )
+                }
+
+
+
             </View>
 
 
@@ -118,10 +142,10 @@ export default function Post({ post }: Postpros) {
                 </View>
                 <View>
                     <TouchableOpacity onPress={handleBookmark}>
-                        <Ionicons name={isBookmarked ? 'bookmark' : 'bookmark-outline'} size={20} color={COLORS.white} />
+                        <Ionicons name={isBookmarked ? 'bookmark' : 'bookmark-outline'} size={20} color={COLORS.primary} />
                     </TouchableOpacity>
                 </View>
-            </View> 
+            </View>
 
 
             {/* Post Info */}
