@@ -1,5 +1,5 @@
 import { COLORS } from "@/constants/theme";
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, Platform, StyleSheet } from "react-native";
 
 const { width } = Dimensions.get('window');
 
@@ -63,5 +63,68 @@ export const styles = StyleSheet.create({
     postImage: {
         width: width, 
         height: width
+    }, 
+    modalContainer: {
+        backgroundColor: COLORS.background,
+        flex: 1,
+        // marginBottom: Platform.OS === "ios" ? 44 : 0, 
+        // marginTop: Platform.OS === "ios" ? 44 : 0
+    }, 
+
+    modalHeader: {
+        flexDirection: "row", 
+        justifyContent: "space-between",
+        alignItems: "center",
+        paddingHorizontal: 16, 
+        height: 56, 
+        borderBottomWidth: 0.5,
+        borderBottomColor: COLORS.surface
+    }, 
+    commentList: {
+        flex: 1, 
+    }, 
+    commentContainer: {
+        flexDirection: "row", 
+        alignItems: "center", 
+        paddingHorizontal: 16, 
+        paddingVertical: 12, 
+        borderBottomWidth: 0.5,
+        borderBottomColor: COLORS.surface,
+    }, 
+    commentAvatar: {
+        width: 32, 
+        height: 32, 
+        borderRadius: 16, 
+        marginRight: 12, 
+    },
+    commentContent: {
+        flex: 1, 
+    }, 
+    commentText: {
+        lineHeight: 20,
+    }, 
+    commentInput: {
+        flexDirection: "row", 
+        alignItems: "center", 
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        borderTopWidth: 0.5, 
+        borderTopColor: COLORS.surface, 
+        backgroundColor: COLORS.background
+    }, 
+    input: {
+        backgroundColor: COLORS.background, 
+        color: COLORS.white, 
+        flex: 1, 
+        borderRadius: 10, 
+        paddingHorizontal: 20
+    }, 
+    postButton: {
+        color: COLORS.primary,
+        fontWeight: "600", 
+        fontSize: 14,
+    },
+    postButtonDisabled: {
+        opacity: 0.5,
     }
 })
