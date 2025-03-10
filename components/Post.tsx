@@ -40,7 +40,12 @@ export default function Post({ post }: Postpros) {
     const [commentsCount, setCommentsCount] = useState(post.comments);
     const [showComments, setShowComments] = useState(false);
 
+    // boookmarked section 
+    const [isBookmarked, setIsBookmarked] = useState(post.isBookmarked)
+
     const togglelike = useMutation(api.posts.toggleLike)
+    const togglebookmark = useMutation(api.bookmarks.toggleBookmark)
+
     const handleLike = async () => {
         try {
             const newIsLiked = await togglelike({ postId: post._id });
@@ -49,6 +54,12 @@ export default function Post({ post }: Postpros) {
         } catch (error) {
             console.log("Error in handlike: ", error)
         }
+    }
+
+    // for bookmarks
+    const handleBookmark = async () => {
+       const newIsBookmarked = await togglebookmark({ postId: post._id})
+       setIsBookmarked(newIsBookmarked); 
     }
 
     return (
@@ -106,11 +117,11 @@ export default function Post({ post }: Postpros) {
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <TouchableOpacity>
-                        <Ionicons name='bookmark-outline' size={20} color={COLORS.white} />
+                    <TouchableOpacity onPress={handleBookmark}>
+                        <Ionicons name={isBookmarked ? 'bookmark' : 'bookmark-outline'} size={20} color={COLORS.white} />
                     </TouchableOpacity>
                 </View>
-            </View>
+            </View> 
 
 
             {/* Post Info */}
