@@ -5,10 +5,10 @@ import { Doc } from "@/convex/_generated/dataModel";
 import { styles } from "@/styles/profile.styles";
 import { useAuth } from "@clerk/clerk-react"
 import { Ionicons } from "@expo/vector-icons";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { Image } from "expo-image";
 import { useState } from "react";
-import { FlatList, Modal, ScrollView, Text, TouchableOpacity, View } from "react-native"
+import { FlatList, Keyboard, KeyboardAvoidingView, Modal, Platform, ScrollView, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
 
 
 const Profile = () => {
@@ -17,15 +17,18 @@ const Profile = () => {
   const currentUser = useQuery(api.users.getUserByClerk, userId ? { clerkId: userId } : "skip");
 
   const [editedProfile, setEditedProfile] = useState({
-    fullname: currentUser?.fullname,
-    bio: currentUser?.bio
+    fullname: currentUser?.fullname || "",
+    bio: currentUser?.bio || ""
   })
 
   const [seletectedPost, setSelectedPost] = useState<Doc<"posts"> | null>(null);
   const posts = useQuery(api.posts.getPostbyUser, {})
 
-  const handleUpdateProfile = () => {
+  const updateProfile = useMutation(api.users.updateProfile)
 
+  const handleUpdateProfile = async () => {
+    await updateProfile(editedProfile)
+    setIsModalEditVisible(false)
   }
 
   if (!currentUser || posts === undefined) return <Loader />
@@ -89,34 +92,77 @@ const Profile = () => {
           </View>
         </View>
 
-        {posts.length == 0 && <NoPostFound /> }
+        {posts.length == 0 && <NoPostFound />}
 
         {/* showing the images or posts */}
         <FlatList
-        data={posts}
-        numColumns={3}
-        scrollEnabled={false}
-        renderItem={({ item }) => (
-          <TouchableOpacity style={styles.gridItem} onPress={() => setSelectedPost(item)}>
-            <Image
-            source={item.imageUrl}
-            style={styles.gridImage}
-            contentFit="cover"
-            transition={200}
-             />
-          </TouchableOpacity>
-        )}
-         />
+          data={posts}
+          numColumns={3}
+          scrollEnabled={false}
+          renderItem={({ item }) => (
+            <TouchableOpacity style={styles.gridItem} onPress={() => setSelectedPost(item)}>
+              <Image
+                source={item.imageUrl}
+                style={styles.gridImage}
+                contentFit="cover"
+                transition={200}
+              />
+            </TouchableOpacity>
+          )}
+        />
       </ScrollView>
 
 
       {/* Edit Profile modal  */}
+      <Modal visible={isModalEditVisible} transparent={true} animationType="slide" onRequestClose={() => setIsModalEditVisible(false)}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          {/* style responsible for showing half modal */}
+          <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <View style={styles.modalHeader}>
+                <Text style={styles.modalTitle}>Edit Profile</Text>
+                <TouchableOpacity onPress={() => setIsModalEditVisible(false)}>
+                  <Ionicons name="close" size={24} color={COLORS.white} />
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>Name</Text>
+                <TextInput
+                  value={editedProfile.fullname}
+                  onChangeText={(text) => setEditedProfile((prev) => ({ ...prev, fullname: text }))}
+                  placeholderTextColor={COLORS.grey}
+                  style={styles.input}
+                />
+              </View>
+
+              <View style={styles.inputContainer}>
+                <Text style={styles.inputLabel}>Bio</Text>
+                <TextInput
+                  value={editedProfile.bio}
+                  onChangeText={(text) => setEditedProfile((prev) => ({ ...prev, bio: text }))}
+                  placeholderTextColor={COLORS.grey}
+                  style={[styles.input, styles.bioInput]}
+                  multiline
+                  numberOfLines={4}
+                />
+              </View>
+
+              <TouchableOpacity style={styles.saveButton} onPress={handleUpdateProfile}>
+                <Text style={styles.saveButtonText}>Save Changes</Text>
+              </TouchableOpacity>
+
+
+            </View>
+          </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
+      </Modal>
       {/* Selected Image Modal */}
       <Modal
-      visible={!!seletectedPost}
-      animationType="fade"
-      transparent={true}
-      onRequestClose={() => setSelectedPost(null)}
+        visible={!!seletectedPost}
+        animationType="fade"
+        transparent={true}
+        onRequestClose={() => setSelectedPost(null)}
       >
         <View style={styles.modalBackdrop}>
           {
@@ -129,10 +175,10 @@ const Profile = () => {
                 </View>
 
                 <Image
-                source={seletectedPost.imageUrl}
-                style={styles.postDetailImage}
-                cachePolicy={"memory-disk"}
-                 />
+                  source={seletectedPost.imageUrl}
+                  style={styles.postDetailImage}
+                  cachePolicy={"memory-disk"}
+                />
 
               </View>
             )
@@ -147,7 +193,7 @@ export default Profile
 
 
 const NoPostFound = () => {
-  return(
+  return (
     <View className="flex-1 items-center justify-center">
       <Text className="text-3xl font-bold">No Posts Yet</Text>
     </View>
