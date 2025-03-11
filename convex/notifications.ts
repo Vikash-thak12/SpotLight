@@ -12,7 +12,7 @@ export const getNotifications = query({
 
         const notificationwithInfo = await Promise.all(
             notifications.map(async (notification) => {
-                const sender = await ctx.db.get(notification.senderId); 
+                const sender = (await ctx.db.get(notification.senderId))!; 
                 let post = null; 
                 let comment = null; 
 
