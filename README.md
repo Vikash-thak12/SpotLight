@@ -33,6 +33,7 @@ cd GetConnect
    ```
 
 3. Start the project with two terminals:
+   
    Terminal 1: Start the Expo development server
    ```bash
     npx expo 
