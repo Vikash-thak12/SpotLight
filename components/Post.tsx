@@ -56,7 +56,7 @@ export default function Post({ post }: Postpros) {
     const deletePost = useMutation(api.posts.deletePost)
     const handleDelete = async () => {
         try {
-            await deletePost({ postId: post._id})
+            await deletePost({ postId: post._id })
         } catch (error) {
             console.log("Error while deleting the post: ", error)
         }
@@ -81,7 +81,9 @@ export default function Post({ post }: Postpros) {
     return (
         <View className='p-4 rounded-xl' style={{ marginBottom: 20 }}>
             <View className='flex-row gap-4 items-center justify-between'>
-                <Link href={"/(tabs)/profile"}>
+                <Link href={
+                    currentUser?._id === post.author._id ? `/(tabs)/profile` : `/user/${post.author._id}`
+                } asChild>
                     <TouchableOpacity className='flex-row gap-4 items-center justify-between rounded-xl'>
                         <Image
                             source={post.author.image}

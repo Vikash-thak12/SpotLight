@@ -68,20 +68,20 @@ export default function CreateScreen() {
 
   if (!selectedImage) {
     return (
-      <View className='bg-gray-300 flex-1 px-2 py-2'>
+      <View className='bg-black flex-1 px-2 py-2'>
         {/* Header */}
-        <View className='flex-row items-center justify-between bg-gray-500 p-2'>
+        <View className='flex-row items-center justify-between p-2'>
           <TouchableOpacity onPress={() => router.back()}>
             <Ionicons name='arrow-back' size={32} color={COLORS.primary} />
           </TouchableOpacity>
-          <Text className='font-bold'>New Post</Text>
+          <Text className='font-bold text-xl text-white'>New Post</Text>
           <Text></Text>
         </View>
 
         {/* Select Image */}
-        <TouchableOpacity className='flex items-center justify-center mt-4 h-[85%] bg-gray-500' onPress={pickImage}>
+        <TouchableOpacity className='flex items-center justify-center h-[90%]' onPress={pickImage}>
           <Ionicons name='image-outline' size={60} color={COLORS.grey} />
-          <Text>Tap to Select an Image</Text>
+          <Text style={{ color: COLORS.primary}}>Tap to Select an Image</Text>
         </TouchableOpacity>
       </View>
     )

@@ -24,7 +24,7 @@ export default function Index() {
     <View className="flex-1 p-2 bg-black">
       {/* Header Section */}
       <View className="flex-row items-center justify-between">
-        <Text className="font-bold text-xl" style={styles.headerTitle}>SpotLight</Text>
+        <Text className="font-bold text-xl" style={styles.headerTitle}>GetConnect</Text>
         <TouchableOpacity onPress={() => signOut()}>
           <Ionicons name="log-out-outline" size={28} color={COLORS.primary} />
         </TouchableOpacity>
