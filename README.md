@@ -42,7 +42,7 @@ cd GetConnect
    ```bash
     npx expo 
    ```
-5. 📄 Folder Structure
+📄 Folder Structure
    ```bash
    📦 GetConnect-App
    ├── 📂 .expo
