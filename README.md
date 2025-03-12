@@ -22,10 +22,9 @@ A modern **React Native** app built with **Expo**, allowing users to save and ma
 
 1️. Clone the repository:  
 ```bash
-git clone https://github.com/yourusername/bookmarks-app.git
-cd getconnect-app
+git clone https://github.com/Vikash-thak12/GetConnect.git
+cd GetConnect
 ```
-
 
 2. Install dependencies
 
@@ -70,6 +69,7 @@ cd getconnect-app
    ├── 📄 tailwind.config.js
    └── 📄 tsconfig.json
    ```
-6. 🙌 Contributing
-   Contributions are welcome! Feel free to fork the repo and submit a PR.
-7. 💙 Made with love by Vikash Thakur
+## 🙌 Contributing
+- Contributions are welcome! Feel free to fork the repo and submit a PR. 
+
+## 💙 Made with love by Vikash Thakur
