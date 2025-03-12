@@ -3,18 +3,29 @@
 A modern React Native social media platform built with Expo, allowing users to post, like, comment, and save bookmarks effortlessly. 🚀  
 
 ## ✨ Features  
+
 ✅ Post, like, comment, and save bookmarks
+
 ✅ Optimized image loading with caching
+
 ✅ Seamless UI with React Native & Expo Image
+
 ✅ Data fetching with Convex
+
 ✅ Fully responsive & dark mode support  
 
 ## 📱 App Screens
+
 1️⃣ Home: Displays the main feed with posts
+
 2️⃣ Bookmarks: View bookmarked posts
+
 3️⃣ Create: Allows users to create new posts
+
 4️⃣ Notifications: Shows likes, comments, and follows
+
 5️⃣ User: Displays user profiles
+
 
 ## 🛠 Tech Stack  
 
