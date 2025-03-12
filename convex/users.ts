@@ -89,3 +89,19 @@ export const getUserProfile = query({
         return user; 
     }
 })
+
+export const isFollowing = query({
+    args: {
+        followingId: v.id("users"),
+    }, 
+    handler: async (ctx, args) => {
+        const currentUser = await getAuthenticatedUser(ctx); 
+
+        const follow = await ctx.db
+        .query("follows")
+        .withIndex("by_both", (q) => q.eq("followerId", currentUser._id).eq("followingId", args.followingId))
+        .first()
+
+        return !!follow; 
+    }
+})
