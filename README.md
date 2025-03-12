@@ -40,7 +40,8 @@ A modern React Native social media platform built with Expo, allowing users to p
 🔒 Clerk for authentication 
 
 ## 📸 Screenshots  
-(Include relevant screenshots here)  
+
+Coming soon
 
 ## 🚀 Installation  
 
