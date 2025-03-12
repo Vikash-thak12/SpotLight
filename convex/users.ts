@@ -77,3 +77,15 @@ export async function getAuthenticatedUser(ctx: QueryCtx | MutationCtx){
     if(!currentUser) throw new Error("User not found")
     return currentUser;    
 }
+
+export const getUserProfile = query({
+    args: {
+        id: v.id("users")
+    }, 
+    handler: async (ctx, args) => {
+        const user = await ctx.db.get(args.id); 
+        if(!user) throw new Error("No User found")
+
+        return user; 
+    }
+})
