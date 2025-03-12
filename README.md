@@ -42,7 +42,17 @@ cd GetConnect
    ```bash
     npx expo 
    ```
-📄 Folder Structure
+## 🛠 Environment Variables  
+
+Create a `.env.local` file in the root of your project and add the following variables:  
+
+```bash
+EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY=""
+CONVEX_DEPLOYMENT=""
+EXPO_PUBLIC_CONVEX_URL=""
+```
+
+## 📄 Folder Structure
    ```bash
    📦 GetConnect-App
    ├── 📂 .expo
