@@ -20,22 +20,39 @@ A modern **React Native** app built with **Expo**, allowing users to save and ma
 
 ## 🚀 Installation  
 
-1️⃣ Clone the repository:  
-```sh
+1️. Clone the repository:  
+```bash
 git clone https://github.com/yourusername/bookmarks-app.git
-cd bookmarks-app
+cd getconnect-app
+```
 
 
-1. Install dependencies
+2. Install dependencies
 
    ```bash
    npm install
    ```
 
-2. Start the app
+3. Start the app
 
    ```bash
     npx expo start
+   ```
+4. Folder Structure
+   ```bash
+   getconnect-app/
+├── app/                  # Main app directory with file-based routing
+│   ├── (tabs)/           # Tab navigation screens
+│   ├── _layout.js        # Layout configuration
+│   ├── index.js          # Home screen
+│   └── post/[id].js      # Post detail screen
+├── convex/               # Convex backend functions and queries
+├── components/           # Reusable UI components
+├── hooks/                # Custom React hooks
+├── styles/               # Global styles and Tailwind configuration
+├── tailwind.json         # Tailwind CSS configuration
+├── App.js                # Main entry point
+└── README.md             # Project documentation
    ```
 
 In the output, you'll find options to open the app in a
