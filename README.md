@@ -1,8 +1,30 @@
-# Welcome to your Expo app 👋
+# 📌 GetConnect App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern **React Native** app built with **Expo**, allowing users to save and manage their favorite posts effortlessly. 🚀  
 
-## Get started
+## ✨ Features  
+✅ Save & view bookmarked posts  
+✅ Optimized image loading with caching  
+✅ Seamless UI with **React Native** & **Expo Image**  
+✅ Data fetching with **Convex**  
+✅ Fully responsive & dark mode support  
+
+## 🛠 Tech Stack  
+- ⚛ **React Native**  
+- 🎨 **Expo Image** for optimized image loading  
+- 🔥 **Convex** for real-time queries  
+- 🌈 **Tailwind CSS** for styling  
+
+## 📸 Screenshots  
+(Include relevant screenshots here)  
+
+## 🚀 Installation  
+
+1️⃣ Clone the repository:  
+```sh
+git clone https://github.com/yourusername/bookmarks-app.git
+cd bookmarks-app
+
 
 1. Install dependencies
 
