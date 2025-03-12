@@ -33,12 +33,16 @@ cd getconnect-app
    npm install
    ```
 
-3. Start the app
-
+3. Start the project with two terminals:
+   Terminal 1: Start the Expo development server
    ```bash
-    npx expo start
+    npx expo 
    ```
-4. Folder Structure
+   Terminal 2: Start the Convex backend
+   ```bash
+    npx expo 
+   ```
+5. 📄 Folder Structure
    ```bash
    📦 GetConnect-App
    ├── 📂 .expo
@@ -65,5 +69,7 @@ cd getconnect-app
    ├── 📄 README.md
    ├── 📄 tailwind.config.js
    └── 📄 tsconfig.json
-
    ```
+6. 🙌 Contributing
+   Contributions are welcome! Feel free to fork the repo and submit a PR.
+7. 💙 Made with love by Vikash Thakur
