@@ -40,16 +40,30 @@ cd getconnect-app
    ```
 4. Folder Structure
    ```bash
-   ├── app/                  # Main app directory with file-based routing
-   │   ├── (tabs)/           # Tab navigation screens
-   │   ├── _layout.js        # Layout configuration
-   │   ├── index.js          # Home screen
-   │   └── post/[id].js      # Post detail screen
-   ├── convex/               # Convex backend functions and queries
-   ├── components/           # Reusable UI components
-   ├── hooks/                # Custom React hooks
-   ├── styles/               # Global styles and Tailwind configuration
-   ├── tailwind.json         # Tailwind CSS configuration
-   ├── App.js                # Main entry point
-   └── README.md             # Project documentation
+   📦 GetConnect-App
+   ├── 📂 .expo
+   ├── 📂 .vscode
+   ├── 📂 app
+   │   ├── 📂 assets
+   │   ├── 📂 components
+   │   ├── 📂 constants
+   │   ├── 📂 convex
+   │   ├── 📂 provider
+   │   ├── 📂 styles
+   ├── 📄 .env.local
+   ├── 📄 .gitignore
+   ├── 📄 app.json
+   ├── 📄 babel.config.js
+   ├── 📄 cache.ts
+   ├── 📄 expo-env.d.ts
+   ├── 📄 global.css
+   ├── 📄 metro.config.js
+   ├── 📄 nativewind-env.d.ts
+   ├── 📄 Notes.md
+   ├── 📄 package-lock.json
+   ├── 📄 package.json
+   ├── 📄 README.md
+   ├── 📄 tailwind.config.js
+   └── 📄 tsconfig.json
+
    ```
